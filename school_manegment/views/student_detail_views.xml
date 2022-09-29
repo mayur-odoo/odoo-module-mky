@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="students_form_view" model="ir.ui.view">
+        <field name="name">student</field>
+        <field name="model">students</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_button_sent" type="object" string="Send by Email" class="oe_highlight" attrs="{'invisible': [('state', 'not in', ['draft','sent','sale'])]}"/>
+                    <button name="action_button_confirm" type="object" confirm="Are you sure want to confirm ?" string="confirm" attrs="{'invisible': [('state', 'not in', ['sent'])]}"/>
+                    <button name="action_button_cancel" type="object" string="Cancel" attrs="{'invisible': [('state', 'not in', ['sent','draft','sale']),('id','=', False)]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,sent,sale"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="reference" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                    	<group>
+                    		<field name="name"/>
+                    		<field name="age"/>
+                    		<field name="gender" invisible="context.get('hide_gender')"/>
+                    		<field name="description"/>
+                    	</group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="students_tree_view" model="ir.ui.view">
+        <field name="name">student.tree</field>
+        <field name="model">students</field>
+        <field name="arch" type="xml">
+            <tree string="Students">
+                <field name="name"/>
+                <field name="age"/>
+                <field name="state"/>
+                <field name="gender"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="student_name_view_search" model="ir.ui.view">
+        <field name="name">student.view.search</field>
+        <field name="model">students</field>
+        <field name="arch" type="xml">
+            <search string="Search Name">
+                <field name="name"/>
+                <field name="gender"/>
+                <filter string="Male" name="name" domain="[('gender','=','male')]"/>
+                <filter string="Female" name="gender" domain="[('gender','=','female')]"/>
+                <filter string="Age" name="gender" domain="[('age','&lt;','18')]"/>
+                <separator/>
+                <group string="Group By">
+                    <filter string="Gender" name="gender" domain="[('gender', '=', 'male')]" context="{'group_by': 'gender'}"/>
+                    <filter string="Age" name="age" domain="[('age', '&lt;', '18')]" context="{'group_by': 'age'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="student_view_kanban" model="ir.ui.view">
+        <field name="name"> student.kanban</field>
+        <field name="model">students</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"/>
+                <field name="age"/>
+                <templates>
+                    <t t-name="kanban-box">
+                       <ul>
+                            <li><strong>name: <field name="name"></field></strong></li>
+                            <li><strong>age: <field name="age"></field></strong></li>
+                        </ul>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="students_action" model="ir.actions.act_window">
+        <field name="name">student</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">students</field>
+        <field name="view_mode">tree,form,search,kanban</field>
+        <field name="context">{'search_default_age':1}</field>    
+    </record>
+
+	<menuitem
+        id="root_students_menu"
+        name="student"
+        sequence="10"
+        />
+    <menuitem
+        id="students_menu"
+        name="Students Info"
+        parent="root_students_menu"
+        action="students_action"
+        sequence="10"
+        />
+</odoo>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="action_female_school" model="ir.actions.act_window">
+        <field name="name">student</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">students</field>
+        <field name="view_mode">tree,form,search</field>
+        <field name="context">{'default_gender': 'female', 'hide_gender': 1}</field>   
+        <field name="domain">[('age', '>=', 0), ('gender', '=', 'male')]</field>
+    </record>
+    <menuitem
+        id="menu_female_student"
+        name="Female"
+        parent="students_menu"
+        action="action_female_school"
+        sequence="10"
+        />
+</odoo>

@@ -17,6 +17,7 @@ This module contains all the informtion of the school.
         'views/sale_order_view.xml',
         'views/school_view.xml',
         'views/femel_studnet.xml',
+        'views/appointment_view.xml',
     ],
     'installable': True,
     'auto_install': False,

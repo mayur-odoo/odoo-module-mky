@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="aapointment_form_view" model="ir.ui.view">
+        <field name="name">appointments</field>
+        <field name="model">appointment</field>
+        <field name="arch" type="xml">
+            <form>
+            	<sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="paint_reference" readonly="1"/>
+                        </h1>
+                    </div>
+            		<group>
+            			<group>
+	            			<field name="paitent_id"/>
+                            <field name="paitnet_gender"/>
+	                		<field name="book_date"/>
+                            <field name="paitent_age"/>
+	                		<field name="appointment_time"/>
+	                	</group>
+            		</group>
+            	</sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_appointment" model="ir.actions.act_window">
+        <field name="name">Appointment</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">appointment</field>
+        <field name="view_mode">tree,form,search</field>
+    </record>
+
+    <menuitem
+        id="menu_aapointment"
+        name="Appointment"
+        parent="root_students_menu"
+        action="action_appointment"
+        sequence="10"
+        />
+</odoo>

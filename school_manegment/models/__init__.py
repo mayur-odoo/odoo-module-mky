@@ -2,3 +2,4 @@
 
 from . import students
 from . import sale_order
+from . import appointment
